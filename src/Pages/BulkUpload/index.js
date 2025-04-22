@@ -76,6 +76,12 @@ const BulkUpload = () => {
     if (response.data) {
       const inserted = response.data.result?.insertedCount || 0;
       const failed = response.data.result?.failedCount || 0;
+      const error = response.data.result.failedRows.map(row => row.error).filter(Boolean);
+      if (failed > 0 && error.length > 0) {        
+        const errorText = error.join('; ');
+        setError(errorText);
+        return;
+      }
   let successMessage = '';
 
   if (uploadType === 'applications') {

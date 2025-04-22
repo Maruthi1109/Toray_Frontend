@@ -2,13 +2,11 @@ import React from "react";
  
 const AuthPage = () => {
     const handleLogin = () => {
-        // const applicationName = "Webapp";
-        const redirectUri = "http://localhost:5000/auth/callback"; // wherever your frontend handles the login result
-     
-        // const loginUrl = `http://localhost:3000/auth/login?applicationName=${encodeURIComponent(applicationName)}&redirectUri=${encodeURIComponent(redirectUri)}`;
-        const loginUrl = `http://localhost:3000/auth/login?applicationName=Webapp&redirectUri=${redirectUri}`;
-        // Redirect the user to backend, which will redirect to Azure
-        window.location.href = loginUrl;
+      const baseUrl = process.env.REACT_APP_AUTH_BASE_URL;
+      const applicationName = process.env.REACT_APP_APPLICATION_NAME;
+      const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+      const loginUrl = `${baseUrl}/auth/login?applicationName=${encodeURIComponent(applicationName)}&redirectUri=${encodeURIComponent(redirectUri)}`;
+      window.location.href = loginUrl;
       };
  
       return (

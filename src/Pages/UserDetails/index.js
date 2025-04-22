@@ -100,10 +100,8 @@ const UserDetails = () => {
       user.login_id.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
       user.email_id.toLowerCase().includes(filters.searchQuery.toLowerCase());
     
-    const matchesApp = !filters.applicationId || 
-      user.application_id === parseInt(filters.applicationId) ||
-      user.app_id === parseInt(filters.applicationId);
-    
+    const matchesApp = !filters.applicationId ||
+      user.app_name?.toLowerCase() === filters.applicationId.toLowerCase();
     return matchesSearch && matchesApp;
   });
 
@@ -448,7 +446,7 @@ const UserDetails = () => {
                         <option value="">{t("All Applications")}</option>
                         {applications.length > 0 ? (
                           applications.map(app => (
-                            <option key={app.id || app.app_id} value={app.id || app.app_id}>
+                            <option key={app.id || app.app_id} value={app.name || app.app_name}>
                               {app.name || app.app_name}
                             </option>
                           ))
